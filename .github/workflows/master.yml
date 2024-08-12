@@ -9,12 +9,8 @@ on:
 jobs:
 
   build:
-
     runs-on: ubuntu-latest
-
     steps:
-      env:
-        ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
     - uses: actions/checkout@v4
     - uses: actions/setup-node@v3 #Setup Node
       with:
@@ -26,3 +22,5 @@ jobs:
         yarn run build
         echo "https://$ACCESS_TOKEN:x-oauth-basic@github.com">"$HOME/.git-credentials"
         yarn run deploy
+      env:
+        ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
