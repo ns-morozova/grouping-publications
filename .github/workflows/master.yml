@@ -13,11 +13,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - uses: actions/setup-node@v3 #Setup Node
       with:
         node-version: '20'
     - name: Run Project
       run: |
         yarn install
-        yarn run deploy       
+        yarn run lint
