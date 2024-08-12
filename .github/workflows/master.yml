@@ -24,6 +24,5 @@ jobs:
         echo "https://$ACCESS_TOKEN:x-oauth-basic@github.com">"$HOME/.git-credentials"
         git config --global user.name ns-morozova
         git config --global user.email ns_morozova@mail.ru
-        yarn run deploy
       env:
         ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
