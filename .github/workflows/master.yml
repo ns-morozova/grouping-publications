@@ -1,0 +1,23 @@
+name: RunProject
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-node@v1 #Setup Node
+      with:
+        node-version: '20'
+    - name: Run Project
+      run: |
+        yarn install
+        yarn run deploy       
