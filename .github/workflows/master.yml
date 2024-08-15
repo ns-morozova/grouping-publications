@@ -1,29 +1,27 @@
-name: RunProject
-
+name: portfolio
 on:
   push:
-    branches: [ master ]
-  pull_request:
-    branches: [ master ]
+    branches:
+      - master
 
 jobs:
-
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
-    - uses: actions/setup-node@v3 #Setup Node
-      with:
-        node-version: '20'
-    - name: Run Project
-      run: |
-        yarn install
-        yarn run lint
-        yarn run build
-        git config --global credential.helper store
-        echo "https://$ACCESS_TOKEN:x-oauth-basic@github.com">"$HOME/.git-credentials"
-        git config --global user.name ns-morozova
-        git config --global user.email ns_morozova@mail.ru
-        yarn dlx push-dir --dir=dist --branch=gh-pages --force --verbose
-      env:
-        ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Install dependencies
+        run: yarn install
+      - name: Run tests
+        run: yarn run lint
+      - name: compile
+        run: yarn run build  
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.TOKEN }}
+          publish_dir: ./dist
